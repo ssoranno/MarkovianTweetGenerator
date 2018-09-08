@@ -88,13 +88,31 @@ string createTweet(vector<MarkovianList> Dict, string startWord){
 
 void printTweet(string tweet){
     cout<< "New Tweet:" << endl;
-    string line1 = tweet.substr(0,80);
+    int indexOfSpace1 = 0;
+    for(int i = 70; i<80; i++){
+        if(tweet[i] ==' '){
+            indexOfSpace1 = i;
+        }
+    }
+    string line1 = tweet.substr(0,indexOfSpace1);
     cout<< line1 << endl;
-    string line2 = tweet.substr(80,80);
+    int indexOfSpace2 = 0;
+    for(int i = indexOfSpace1+70; i<indexOfSpace1+80; i++){
+        if(tweet[i] == ' '){
+            indexOfSpace2 = i;
+        }
+    }
+    string line2 = tweet.substr(indexOfSpace1+1,indexOfSpace2-(indexOfSpace1+1));
     cout<< line2 << endl;
-    string line3 = tweet.substr(160,80);
+    int indexOfSpace3 = 0;
+    for(int i = indexOfSpace2+70; i<indexOfSpace2+80; i++){
+        if(tweet[i] == ' '){
+            indexOfSpace3 = i;
+        }
+    }
+    string line3 = tweet.substr(indexOfSpace2+1,indexOfSpace3-(indexOfSpace2+1));
     cout<< line3 << endl;
-    string line4 = tweet.substr(240,tweet.length()-240);
+    string line4 = tweet.substr(indexOfSpace3+1,tweet.length()-indexOfSpace3);
     cout<< line4 << endl;
     //cout<< line1 << endl << line2 << endl << line3 << endl << line4 << endl;
 }
