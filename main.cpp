@@ -1,3 +1,8 @@
+/*
+Markovian Tweet Generator
+Author: Steven Soranno
+*/
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -13,6 +18,10 @@ struct MarkovianList{
 };
 
 int dictContains(vector<MarkovianList> Dict, string s, int length);
+vector<MarkovianList> makeDictionary(string tweet[],int length);
+int dictContains(vector<MarkovianList> Dict, string s, int length);
+string createTweet(vector<MarkovianList> Dict, string startWord);
+void printTweet(string tweet);
 
 vector<MarkovianList> makeDictionary(string tweet[],int length){
     vector<MarkovianList> Dict;
@@ -30,7 +39,7 @@ vector<MarkovianList> makeDictionary(string tweet[],int length){
             Dict.push_back(newList);
 	}
     }
-    /*
+    
     for(int i = 0; i<Dict.size(); i++){
         cout<< "word:"<< Dict[i].word;
         cout<<" wordlist: ";
@@ -38,7 +47,7 @@ vector<MarkovianList> makeDictionary(string tweet[],int length){
             cout<< Dict[i].nextWords[j]<< ", ";
         }
         cout<< endl;
-    }*/
+    }
     return Dict;
 }
 
@@ -65,7 +74,8 @@ string createTweet(vector<MarkovianList> Dict, string startWord){
         int indexCurrentWord = dictContains(Dict, currentWord, Dict.size());
         int sizeOfNextWord = Dict[indexCurrentWord].nextWords.size();
         int randIndex = rand()%sizeOfNextWord;
-        //cout<< "randIndex:"<<randIndex << endl;
+        cout<< "Current Word:"<<currentWord << endl;
+        cout<< "randIndex:"<<randIndex << endl;
         string nextWord = Dict[indexCurrentWord].nextWords[randIndex];
         //cout<< "nextWord" << nextWord << endl;
         if(nextWord != "." && nextWord != "?" && nextWord != "!" && nextWord != ","){
