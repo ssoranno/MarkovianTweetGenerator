@@ -39,15 +39,15 @@ vector<MarkovianList> makeDictionary(string tweet[],int length){
             Dict.push_back(newList);
 	}
     }
-    
-    for(int i = 0; i<Dict.size(); i++){
+    //Print Dict
+    /*for(int i = 0; i<Dict.size(); i++){
         cout<< "word:"<< Dict[i].word;
         cout<<" wordlist: ";
         for(int j = 0; j<Dict[i].nextWords.size(); j++){
             cout<< Dict[i].nextWords[j]<< ", ";
         }
         cout<< endl;
-    }
+    }*/
     return Dict;
 }
 
@@ -74,11 +74,13 @@ string createTweet(vector<MarkovianList> Dict, string startWord){
         int indexCurrentWord = dictContains(Dict, currentWord, Dict.size());
         int sizeOfNextWord = Dict[indexCurrentWord].nextWords.size();
         int randIndex = rand()%sizeOfNextWord;
-        cout<< "Current Word:"<<currentWord << endl;
-        cout<< "randIndex:"<<randIndex << endl;
+
+        // Testing print statements
+        //cout<< "Current Word:"<<currentWord << endl;
+        //cout<< "randIndex:"<<randIndex << endl;
         string nextWord = Dict[indexCurrentWord].nextWords[randIndex];
         //cout<< "nextWord" << nextWord << endl;
-        if(nextWord != "." && nextWord != "?" && nextWord != "!" && nextWord != ","){
+        if(nextWord != "." && nextWord != "?" && nextWord != "!" && nextWord != "," && nextWord != ";"){
             //cout<< "added space" << endl;
             newTweet = newTweet+ " " + nextWord;
             //cout<< "newTweet+space:" << newTweet << endl;
@@ -142,6 +144,9 @@ int main(){
             string temp = word;
             int k = 0;
             for(int j = 0; j<temp.length();j++){
+	        //cout<<"word: " << word;
+                word.erase(remove( word.begin(), word.end(), '\"' ),word.end());
+                
                 if(word.find(".") != std::string::npos){
                     newWords[k] = word[word.find(".")];
                     word.erase(word.find("."),1);
@@ -162,6 +167,18 @@ int main(){
                     word.erase(word.find("!"),1);
                     k++;
                 }
+                if(word.find(";") != std::string::npos){
+                    newWords[k] = word[word.find(";")];
+                    word.erase(word.find(";"),1);
+                    k++;
+                }
+
+                /*if(word.find("\"") != std::string::npos){
+                    cout<< " gotHere ";
+	            word.erase(word.find("\""),1);
+                    k++;
+                }*/
+                //cout<< "  word2: "<< word << endl;
             }
             tweet.push_back(word);
 	    i++;
@@ -181,7 +198,7 @@ int main(){
     vector<MarkovianList> Dict = makeDictionary(newArr, i);
     string newTweet = createTweet(Dict,"The");
     printTweet(newTweet);
-    cout<< "finished program" << endl;
+    //cout<< "finished program" << endl;
     file.close();
     return 0;
 }
