@@ -146,7 +146,6 @@ int main(){
             for(int j = 0; j<temp.length();j++){
 	        //cout<<"word: " << word;
                 word.erase(remove( word.begin(), word.end(), '\"' ),word.end());
-                
                 if(word.find(".") != std::string::npos){
                     newWords[k] = word[word.find(".")];
                     word.erase(word.find("."),1);
@@ -198,7 +197,6 @@ int main(){
     vector<MarkovianList> Dict = makeDictionary(newArr, i);
     string newTweet = createTweet(Dict,"The");
     printTweet(newTweet);
-    //cout<< "finished program" << endl;
     file.close();
     return 0;
 }
