@@ -1,6 +1,6 @@
 /*
 Markovian Tweet Generator
-Author: Steven Soranno
+Authors: Steven Soranno, Mike Meehan
 */
 
 #include <iostream>
